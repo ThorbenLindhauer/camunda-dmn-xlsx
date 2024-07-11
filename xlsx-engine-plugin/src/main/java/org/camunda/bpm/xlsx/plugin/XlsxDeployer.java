@@ -17,6 +17,7 @@ import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.camunda.bpm.dmn.xlsx.AdvancedSpreadsheetAdapter;
 import org.camunda.bpm.dmn.xlsx.XlsxConverter;
 import org.camunda.bpm.engine.impl.context.Context;
 import org.camunda.bpm.engine.impl.persistence.deploy.Deployer;
@@ -96,6 +97,8 @@ public class XlsxDeployer implements Deployer {
     XlsxConverter converter = new XlsxConverter();
     if (metaData != null) {
       metaData.applyTo(converter);
+    } else {
+      converter.setIoDetectionStrategy(new AdvancedSpreadsheetAdapter());
     }
     return converter.convert(inputStream);
   }
